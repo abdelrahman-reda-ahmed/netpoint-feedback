@@ -122,7 +122,7 @@ function setupFormSubmit() {
     };
 
     try {
-      const { error } = await supabase.from("feedback").insert([payload]);
+      const { error } = await supabase.rpc("submit_feedback", payload);
       if (error) throw error;
 
       document.getElementById("feedbackForm").style.display = "none";
