@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NetPoint Feedback</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>NetPoint Bootcamp Feedback</h1>
+      <p class="subtitle" id="sessionLabel">Loading session info...</p>
+    </header>
+
+    <form id="feedbackForm" class="feedback-form" style="display:none;">
+      <div class="session-fallback" id="sessionFallback" style="display:none;">
+        <label for="sessionInput">Session Number</label>
+        <input type="number" id="sessionInput" min="1" max="99" placeholder="e.g. 3">
+      </div>
+
+      <div class="instructions">
+        <p>Rate each item from <strong>1</strong> (poor) to <strong>5</strong> (excellent)</p>
+      </div>
+
+      <div class="rating-group" data-field="clarity">
+        <label>Clarity of the session's explanation</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-clarity"></span>
+      </div>
+
+      <div class="rating-group" data-field="pace">
+        <label>Pace of the session (not too fast / not too slow)</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-pace"></span>
+      </div>
+
+      <div class="rating-group" data-field="relevance">
+        <label>Relevance of the content to what you expected to learn</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-relevance"></span>
+      </div>
+
+      <div class="rating-group" data-field="theory_practice_balance">
+        <label>Balance between theory and hands-on practice</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-theory_practice_balance"></span>
+      </div>
+
+      <div class="rating-group" data-field="instructor_clarity">
+        <label>Instructor's clarity and communication</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-instructor_clarity"></span>
+      </div>
+
+      <div class="rating-group" data-field="materials_quality">
+        <label>Quality of the slides/materials used</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-materials_quality"></span>
+      </div>
+
+      <div class="rating-group" data-field="hands_on_usefulness">
+        <label>Usefulness of the hands-on lab/practical part</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-hands_on_usefulness"></span>
+      </div>
+
+      <div class="rating-group" data-field="quiz_app_usefulness">
+        <label>Usefulness of the quiz/HTML app for reinforcing the session</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-quiz_app_usefulness"></span>
+      </div>
+
+      <div class="rating-group" data-field="overall_satisfaction">
+        <label>Overall satisfaction with this session</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-overall_satisfaction"></span>
+      </div>
+
+      <div class="rating-group" data-field="confidence">
+        <label>Confidence applying what was learned today</label>
+        <div class="rating-buttons">
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+        </div>
+        <span class="rating-label" id="label-confidence"></span>
+      </div>
+
+      <div class="comments-section">
+        <label for="comments">Anything you'd like to add — suggestions, confusing parts, or topics you want covered more?</label>
+        <textarea id="comments" rows="4" placeholder="(optional)"></textarea>
+      </div>
+
+      <button type="submit" id="submitBtn" class="submit-btn">Submit Feedback</button>
+    </form>
+
+    <div id="successMessage" class="success-message" style="display:none;">
+      <div class="success-icon">&#10003;</div>
+      <h2>Thank you!</h2>
+      <p>Your feedback has been submitted successfully.</p>
+      <p class="success-sub">You can close this page now.</p>
+    </div>
+
+    <div id="errorMessage" class="error-message" style="display:none;">
+      <p>Something went wrong. Please try again.</p>
+      <button type="button" onclick="location.reload()">Retry</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
