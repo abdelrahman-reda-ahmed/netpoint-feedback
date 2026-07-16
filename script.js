@@ -103,6 +103,13 @@
         sessionNumber = parseInt(document.getElementById("sessionInput").value);
       }
 
+      var studentName = document.getElementById("studentName").value.trim();
+      if (!studentName) {
+        alert("Please enter your name.");
+        document.getElementById("studentName").focus();
+        return;
+      }
+
       if (!sessionNumber || sessionNumber <= 0) {
         alert("Please enter a valid session number.");
         return;
@@ -123,6 +130,7 @@
       submitBtn.textContent = "Submitting...";
 
       var payload = {
+        p_student_name: studentName,
         p_session_number: sessionNumber,
         p_clarity: ratings.clarity,
         p_pace: ratings.pace,

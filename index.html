@@ -14,6 +14,11 @@
     </header>
 
     <form id="feedbackForm" class="feedback-form" style="display:none;">
+      <div class="name-field">
+        <label for="studentName">Your Name</label>
+        <input type="text" id="studentName" placeholder="e.g. Ahmed" autocomplete="name">
+      </div>
+
       <div class="session-fallback" id="sessionFallback" style="display:none;">
         <label for="sessionInput">Session Number</label>
         <input type="number" id="sessionInput" min="1" max="99" placeholder="e.g. 3">

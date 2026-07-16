@@ -1,31 +1,12 @@
 -- NetPoint Feedback Platform - Supabase Schema
 -- Run this in the Supabase SQL Editor (https://supabase.com/dashboard → SQL Editor)
 
--- 1. Create the feedback table
-create table if not exists feedback (
-  id uuid primary key default gen_random_uuid(),
-  session_number int not null,
-  clarity smallint not null,
-  pace smallint not null,
-  relevance smallint not null,
-  theory_practice_balance smallint not null,
-  instructor_clarity smallint not null,
-  materials_quality smallint not null,
-  hands_on_usefulness smallint not null,
-  quiz_app_usefulness smallint not null,
-  overall_satisfaction smallint not null,
-  confidence smallint not null,
-  comments text,
-  created_at timestamptz default now()
-);
+-- 1. Add student_name column to feedback table
+alter table feedback add column if not exists student_name text not null default '';
 
--- 2. Enable RLS (default deny all)
-alter table feedback enable row level security;
-
--- 3. SECURITY DEFINER function for inserting feedback
---    RLS policies with `to anon` don't work with PostgREST's role switching,
---    so we use a security definer function that bypasses RLS.
+-- 2. Update the submit_feedback function to include student_name
 create or replace function submit_feedback(
+  p_student_name text,
   p_session_number int,
   p_clarity smallint,
   p_pace smallint,
@@ -47,11 +28,11 @@ declare
   result json;
 begin
   insert into feedback (
-    session_number, clarity, pace, relevance, theory_practice_balance,
+    student_name, session_number, clarity, pace, relevance, theory_practice_balance,
     instructor_clarity, materials_quality, hands_on_usefulness,
     quiz_app_usefulness, overall_satisfaction, confidence, comments
   ) values (
-    p_session_number, p_clarity, p_pace, p_relevance, p_theory_practice_balance,
+    p_student_name, p_session_number, p_clarity, p_pace, p_relevance, p_theory_practice_balance,
     p_instructor_clarity, p_materials_quality, p_hands_on_usefulness,
     p_quiz_app_usefulness, p_overall_satisfaction, p_confidence, p_comments
   ) returning to_json(feedback.*) into result;
@@ -59,10 +40,7 @@ begin
 end;
 $$;
 
--- 4. Allow anon role to execute the function
+-- 3. Re-grant execute with updated signature
 grant execute on function submit_feedback(
-  int, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, text
+  text, int, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, text
 ) to anon;
-
--- 5. Also grant insert to anon as fallback
-grant insert on feedback to anon;
